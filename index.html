@@ -44,8 +44,25 @@
         .bot-avatar img { width: 100%; height: 100%; object-fit: cover; }
         h1 { font-size: 3rem; color: #ffffff; margin-bottom: 10px; }
         h1 span { color: #3b82f6; }
-        p { font-size: 1.1rem; color: #9ca3af; margin-bottom: 30px; line-height: 1.6; }
-        .btn-group { display: flex; gap: 15px; justify-content: center; }
+        p { font-size: 1.1rem; color: #9ca3af; margin-bottom: 20px; line-height: 1.6; }
+        
+        /* Komut Stilleri ve Başlığı */
+        .commands-section {
+            width: 100%; text-align: left; margin-bottom: 25px;
+        }
+        .commands-title {
+            font-size: 1rem; color: #9ca3af; margin-bottom: 8px; font-weight: 600;
+        }
+        .commands-box {
+            display: flex; gap: 10px; flex-wrap: wrap;
+        }
+        .cmd-tag {
+            background-color: #1f2937; border: 1px solid #374151; color: #f3f4f6;
+            padding: 6px 14px; border-radius: 8px; font-family: monospace; font-size: 0.95rem;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+        }
+
+        .btn-group { display: flex; gap: 15px; justify-content: center; width: 100%; }
         .btn { background-color: #3b82f6; color: white; padding: 12px 28px; border-radius: 8px; text-decoration: none; font-weight: 600; transition: all 0.2s; box-shadow: 0 4px 14px rgba(59, 130, 246, 0.4); }
         .btn:hover { background-color: #2563eb; transform: translateY(-2px); }
         .btn-secondary { background-color: #1f2937; border: 1px solid #374151; box-shadow: none; }
@@ -74,6 +91,15 @@
         <h1 id="title">Solly <span>Bot</span></h1>
         <p id="desc">Discord sunucundaki kanalları çok daha hızlı ve pratik bir şekilde kurmanı sağlayan efsane bot!</p>
         
+        <!-- Komutlar Başlığı ve Etiketler -->
+        <div class="commands-section">
+            <div class="commands-title" id="cmd-heading">Komutlar</div>
+            <div class="commands-box">
+                <span class="cmd-tag">/kur</span>
+                <span class="cmd-tag">/create</span>
+            </div>
+        </div>
+
         <div class="btn-group">
             <a href="https://discord.com/oauth2/authorize?client_id=1538529494347022368&permissions=8&integration_type=0&scope=bot" class="btn" id="btn-add" target="_blank">Sunucuya Ekle</a>
             <a href="https://discord.gg/xJqv2XzSwP" class="btn btn-secondary" id="btn-support" target="_blank">Destek Sunucusu</a>
@@ -111,6 +137,7 @@
         let currentLang = 'tr';
         function toggleLanguage() {
             const desc = document.getElementById('desc');
+            const cmdHeading = document.getElementById('cmd-heading');
             const btnAdd = document.getElementById('btn-add');
             const btnSupport = document.getElementById('btn-support');
             const langBtn = document.querySelector('.lang-switch');
@@ -119,12 +146,14 @@
                 currentLang = 'en';
                 langBtn.innerText = 'TR / EN';
                 desc.innerText = 'An awesome bot that allows you to set up channels in your Discord server much faster and more practically!';
+                cmdHeading.innerText = 'Commands';
                 btnAdd.innerText = 'Add to Server';
                 btnSupport.innerText = 'Support Server';
             } else {
                 currentLang = 'tr';
                 langBtn.innerText = 'EN / TR';
                 desc.innerText = 'Discord sunucundaki kanalları çok daha hızlı ve pratik bir şekilde kurmanı sağlayan efsane bot!';
+                cmdHeading.innerText = 'Komutlar';
                 btnAdd.innerText = 'Sunucuya Ekle';
                 btnSupport.innerText = 'Destek Sunucusu';
             }
