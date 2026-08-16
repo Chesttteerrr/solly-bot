@@ -8,7 +8,7 @@
         * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; }
         body { background-color: #0b0f19; color: #d1d5db; display: flex; flex-direction: column; align-items: center; justify-content: center; height: 100vh; text-align: center; overflow: hidden; background-image: radial-gradient(circle at center, #1e293b 0%, #0b0f19 70%); }
         
-        /* Müzik Kontrol Alanı - Daha Şık ve Modern */
+        /* Müzik Kontrol Alanı */
         .music-wrapper {
             position: fixed; top: 25px; left: 25px; z-index: 9999;
             display: flex; align-items: center; background: rgba(0,0,0,0.5);
@@ -20,7 +20,7 @@
             cursor: pointer; width: 40px; height: 40px; display: flex; 
             align-items: center; justify-content: center; font-size: 20px;
             background: #3b82f6; border: none; border-radius: 50%; color: white;
-            transition: transform 0.2s;
+            transition: transform 0.2s; outline: none;
         }
         #music-control:hover { transform: scale(1.05); }
 
@@ -54,17 +54,15 @@
 </head>
 <body>
 
+    <!-- Arka Planda Gizli YouTube Oynatıcı (Attığın Link: 6XpPWHVdGB8) -->
+    <div id="youtube-player" style="display:none;"></div>
+
     <div class="music-wrapper">
         <button id="music-control" onclick="toggleMusic()">🔊</button>
         <div class="volume-container">
-            <input type="range" min="0" max="1" step="0.01" value="0.5" class="volume-slider" oninput="audio.volume = this.value">
+            <input type="range" min="0" max="100" value="50" class="volume-slider" id="volume-slider" oninput="changeVolume(this.value)">
         </div>
     </div>
-
-    <!-- Attığın linkin vibe'ını veren, web-uyumlu Lofi ses kaynağı -->
-    <audio id="chill-audio" loop preload="auto" autoplay>
-        <source src="https://www.learningcontainer.com/wp-content/uploads/2020/02/Kalimba.mp3" type="audio/mpeg">
-    </audio>
 
     <button class="lang-switch" onclick="toggleLanguage()">EN / TR</button>
 
@@ -79,26 +77,56 @@
         </div>
     </div>
 
+    <!-- YouTube IAPI Script -->
+    <script src="https://www.youtube.com/iframe_api"></script>
     <script>
-        const audio = document.getElementById('chill-audio');
-        const controlBtn = document.getElementById('music-control');
+        let player;
         let isPlaying = true;
+        const controlBtn = document.getElementById('music-control');
+
+        function onYouTubeIframeAPIReady() {
+            player = new YT.Player('youtube-player', {
+                height: '0',
+                width: '0',
+                videoId: '6XpPWHVdGB8',
+                playerVars: {
+                    'autoplay': 1,
+                    'loop': 1,
+                    'playlist': '6XpPWHVdGB8'
+                },
+                events: {
+                    'onReady': (event) => {
+                        event.target.setVolume(50);
+                        event.target.playVideo();
+                    }
+                }
+            });
+        }
 
         function toggleMusic() {
+            if (!player) return;
             if (isPlaying) {
-                audio.pause();
+                player.pauseVideo();
                 controlBtn.innerText = "🔇";
                 isPlaying = false;
             } else {
-                audio.play();
+                player.playVideo();
                 controlBtn.innerText = "🔊";
                 isPlaying = true;
             }
         }
-        // Sayfa açıldığında tarayıcı politikaları gereği ses için etkileşim şartı
-        window.addEventListener('click', () => { if(!isPlaying) audio.play(); }, {once: true});
-    </script>
-    <script>
+
+        function changeVolume(val) {
+            if (!player) return;
+            player.setVolume(val);
+            if (val == 0) {
+                controlBtn.innerText = "🔇";
+            } else if (!isPlaying) {
+                controlBtn.innerText = "🔊";
+                isPlaying = true;
+            }
+        }
+
         let currentLang = 'tr';
         function toggleLanguage() {
             const desc = document.getElementById('desc');
