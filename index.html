@@ -35,9 +35,33 @@
             cursor: pointer;
             font-weight: 600;
             transition: background 0.2s;
+            z-index: 10;
         }
         .lang-switch:hover {
             background: #374151;
+        }
+        /* Sol Üst Chill Müzik Butonu Stili */
+        #music-control {
+            position: fixed;
+            top: 20px;
+            left: 20px;
+            z-index: 9999;
+            background: rgba(0, 0, 0, 0.6);
+            color: white;
+            padding: 8px 14px;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 13px;
+            font-weight: 600;
+            backdrop-filter: blur(5px);
+            border: 1px solid rgba(255,255,255,0.1);
+            transition: 0.2s;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+        #music-control:hover {
+            background: rgba(0, 0, 0, 0.8);
         }
         .container {
             max-width: 650px;
@@ -105,6 +129,14 @@
 </head>
 <body>
 
+    <!-- Sol Üst Chill Müzik Butonu -->
+    <div id="music-control">
+        <span>🔊</span> Chill: <span id="music-status">Açık</span>
+    </div>
+
+    <!-- Görünmez Müzik Oynatıcı (Telifsiz Chill Lofi) -->
+    <iframe id="chill-audio" src="https://www.youtube.com/embed/5qap5aO4i9A?autoplay=1&loop=1&playlist=5qap5aO4i9A" allow="autoplay" style="display:none;"></iframe>
+
     <button class="lang-switch" onclick="toggleLanguage()">EN / TR</button>
 
     <div class="container">
@@ -144,6 +176,26 @@
                 btnSupport.innerText = 'Destek Sunucusu';
             }
         }
+
+        // Müzik Açma/Kapatma Mantığı
+        const musicControl = document.getElementById('music-control');
+        const musicStatus = document.getElementById('music-status');
+        const audioIframe = document.getElementById('chill-audio');
+        let isPlaying = true;
+
+        musicControl.addEventListener('click', () => {
+            if (isPlaying) {
+                audioIframe.src = "";
+                musicStatus.textContent = "Kapalı";
+                musicControl.style.background = "rgba(200, 0, 0, 0.6)";
+                isPlaying = false;
+            } else {
+                audioIframe.src = "https://www.youtube.com/embed/5qap5aO4i9A?autoplay=1&loop=1&playlist=5qap5aO4i9A";
+                musicStatus.textContent = "Açık";
+                musicControl.style.background = "rgba(0, 0, 0, 0.6)";
+                isPlaying = true;
+            }
+        });
     </script>
 
 </body>
