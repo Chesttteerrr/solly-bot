@@ -54,13 +54,15 @@
 </head>
 <body>
 
-    <!-- Arka Planda Gizli YouTube Oynatıcı (Attığın Link: 6XpPWHVdGB8) -->
-    <div id="youtube-player" style="display:none;"></div>
+    <!-- Stabil HTML5 Audio (Akşam Kahvesi Lofi Vibe) -->
+    <audio id="chill-audio" loop preload="auto">
+        <source src="https://cdn.pixabay.com/download/audio/2022/05/27/audio_1808fbf756.mp3?filename=lofi-study-112191.mp3" type="audio/mpeg">
+    </audio>
 
     <div class="music-wrapper">
-        <button id="music-control" onclick="toggleMusic()">🔊</button>
+        <button id="music-control" onclick="toggleMusic()">🔇</button>
         <div class="volume-container">
-            <input type="range" min="0" max="100" value="50" class="volume-slider" id="volume-slider" oninput="changeVolume(this.value)">
+            <input type="range" min="0" max="1" step="0.01" value="0.5" class="volume-slider" id="volume-slider" oninput="changeVolume(this.value)">
         </div>
     </div>
 
@@ -77,53 +79,35 @@
         </div>
     </div>
 
-    <!-- YouTube IAPI Script -->
-    <script src="https://www.youtube.com/iframe_api"></script>
     <script>
-        let player;
-        let isPlaying = true;
+        const audio = document.getElementById('chill-audio');
         const controlBtn = document.getElementById('music-control');
+        const volumeSlider = document.getElementById('volume-slider');
+        let isPlaying = false;
 
-        function onYouTubeIframeAPIReady() {
-            player = new YT.Player('youtube-player', {
-                height: '0',
-                width: '0',
-                videoId: '6XpPWHVdGB8',
-                playerVars: {
-                    'autoplay': 1,
-                    'loop': 1,
-                    'playlist': '6XpPWHVdGB8'
-                },
-                events: {
-                    'onReady': (event) => {
-                        event.target.setVolume(50);
-                        event.target.playVideo();
-                    }
-                }
-            });
-        }
+        audio.volume = 0.5;
 
         function toggleMusic() {
-            if (!player) return;
             if (isPlaying) {
-                player.pauseVideo();
+                audio.pause();
                 controlBtn.innerText = "🔇";
                 isPlaying = false;
             } else {
-                player.playVideo();
-                controlBtn.innerText = "🔊";
-                isPlaying = true;
+                audio.play().then(() => {
+                    controlBtn.innerText = "🔊";
+                    isPlaying = true;
+                }).catch(e => {
+                    console.log("Oynatma engellendi:", e);
+                });
             }
         }
 
         function changeVolume(val) {
-            if (!player) return;
-            player.setVolume(val);
+            audio.volume = val;
             if (val == 0) {
                 controlBtn.innerText = "🔇";
-            } else if (!isPlaying) {
+            } else {
                 controlBtn.innerText = "🔊";
-                isPlaying = true;
             }
         }
 
