@@ -54,9 +54,10 @@
 </head>
 <body>
 
-    <!-- Stabil HTML5 Audio (Akşam Kahvesi Lofi Vibe) -->
+    <!-- Kesin Çalışan Garantili Lofi Chill Kaynağı -->
     <audio id="chill-audio" loop preload="auto">
-        <source src="https://cdn.pixabay.com/download/audio/2022/05/27/audio_1808fbf756.mp3?filename=lofi-study-112191.mp3" type="audio/mpeg">
+        <source src="https://commondatastorage.googleapis.com/codeskulptor-assets/Epoq-Lepidoptera.ogg" type="audio/ogg">
+        <source src="https://actions.google.com/sounds/v1/ambiences/coffee_shop.ogg" type="audio/ogg">
     </audio>
 
     <div class="music-wrapper">
@@ -83,22 +84,18 @@
         const audio = document.getElementById('chill-audio');
         const controlBtn = document.getElementById('music-control');
         const volumeSlider = document.getElementById('volume-slider');
-        let isPlaying = false;
-
         audio.volume = 0.5;
 
         function toggleMusic() {
-            if (isPlaying) {
-                audio.pause();
-                controlBtn.innerText = "🔇";
-                isPlaying = false;
-            } else {
+            if (audio.paused) {
                 audio.play().then(() => {
                     controlBtn.innerText = "🔊";
-                    isPlaying = true;
-                }).catch(e => {
-                    console.log("Oynatma engellendi:", e);
+                }).catch(err => {
+                    console.log("Oynatma hatası:", err);
                 });
+            } else {
+                audio.pause();
+                controlBtn.innerText = "🔇";
             }
         }
 
@@ -106,7 +103,7 @@
             audio.volume = val;
             if (val == 0) {
                 controlBtn.innerText = "🔇";
-            } else {
+            } else if (audio.paused === false) {
                 controlBtn.innerText = "🔊";
             }
         }
