@@ -5,145 +5,43 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Solly | Discord Bot</title>
     <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-        }
-        body {
-            background-color: #0b0f19;
-            color: #d1d5db;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            height: 100vh;
-            text-align: center;
-            overflow: hidden;
-            background-image: radial-gradient(circle at center, #1e293b 0%, #0b0f19 70%);
-        }
-        .lang-switch {
-            position: absolute;
-            top: 20px;
-            right: 20px;
-            background: #1f2937;
-            border: 1px solid #374151;
-            color: white;
-            padding: 8px 16px;
-            border-radius: 6px;
-            cursor: pointer;
-            font-weight: 600;
-            transition: background 0.2s;
-            z-index: 10;
-        }
-        .lang-switch:hover {
-            background: #374151;
-        }
-        /* Sol Üst Chill Müzik Butonu Stili */
+        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; }
+        body { background-color: #0b0f19; color: #d1d5db; display: flex; flex-direction: column; align-items: center; justify-content: center; height: 100vh; text-align: center; overflow: hidden; background-image: radial-gradient(circle at center, #1e293b 0%, #0b0f19 70%); }
+        
         #music-control {
-            position: fixed;
-            top: 20px;
-            left: 20px;
-            z-index: 9999;
-            background: rgba(0, 0, 0, 0.6);
-            color: white;
-            padding: 8px 14px;
-            border-radius: 8px;
-            cursor: pointer;
-            font-size: 13px;
-            font-weight: 600;
-            backdrop-filter: blur(5px);
-            border: 1px solid rgba(255,255,255,0.1);
-            transition: 0.2s;
-            display: flex;
-            align-items: center;
-            gap: 6px;
+            position: fixed; top: 20px; left: 20px; z-index: 9999; cursor: pointer;
+            background: rgba(0,0,0,0.4); padding: 10px; border-radius: 50%;
+            width: 45px; height: 45px; display: flex; align-items: center; justify-content: center;
+            backdrop-filter: blur(5px); border: 1px solid rgba(255,255,255,0.1); font-size: 20px;
         }
-        #music-control:hover {
-            background: rgba(0, 0, 0, 0.8);
-        }
-        .container {
-            max-width: 650px;
-            padding: 20px;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-        }
-        .bot-avatar {
-            width: 140px;
-            height: 140px;
-            border-radius: 50%;
-            overflow: hidden;
-            margin-bottom: 25px;
-            box-shadow: 0 0 30px rgba(59, 130, 246, 0.5);
-            border: 4px solid #3b82f6;
-        }
-        .bot-avatar img {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-        }
-        h1 {
-            font-size: 3rem;
-            color: #ffffff;
-            margin-bottom: 10px;
-        }
-        h1 span {
-            color: #3b82f6;
-        }
-        p {
-            font-size: 1.1rem;
-            color: #9ca3af;
-            margin-bottom: 30px;
-            line-height: 1.6;
-        }
-        .btn-group {
-            display: flex;
-            gap: 15px;
-            justify-content: center;
-        }
-        .btn {
-            background-color: #3b82f6;
-            color: white;
-            padding: 12px 28px;
-            border-radius: 8px;
-            text-decoration: none;
-            font-weight: 600;
-            transition: all 0.2s;
-            box-shadow: 0 4px 14px rgba(59, 130, 246, 0.4);
-        }
-        .btn:hover {
-            background-color: #2563eb;
-            transform: translateY(-2px);
-        }
-        .btn-secondary {
-            background-color: #1f2937;
-            border: 1px solid #374151;
-            box-shadow: none;
-        }
-        .btn-secondary:hover {
-            background-color: #374151;
-        }
+
+        .lang-switch { position: absolute; top: 20px; right: 20px; background: #1f2937; border: 1px solid #374151; color: white; padding: 8px 16px; border-radius: 6px; cursor: pointer; font-weight: 600; transition: background 0.2s; z-index: 10; }
+        .lang-switch:hover { background: #374151; }
+
+        .container { max-width: 650px; padding: 20px; display: flex; flex-direction: column; align-items: center; }
+        .bot-avatar { width: 140px; height: 140px; border-radius: 50%; overflow: hidden; margin-bottom: 25px; box-shadow: 0 0 30px rgba(59, 130, 246, 0.5); border: 4px solid #3b82f6; }
+        .bot-avatar img { width: 100%; height: 100%; object-fit: cover; }
+        h1 { font-size: 3rem; color: #ffffff; margin-bottom: 10px; }
+        h1 span { color: #3b82f6; }
+        p { font-size: 1.1rem; color: #9ca3af; margin-bottom: 30px; line-height: 1.6; }
+        .btn-group { display: flex; gap: 15px; justify-content: center; }
+        .btn { background-color: #3b82f6; color: white; padding: 12px 28px; border-radius: 8px; text-decoration: none; font-weight: 600; transition: all 0.2s; box-shadow: 0 4px 14px rgba(59, 130, 246, 0.4); }
+        .btn:hover { background-color: #2563eb; transform: translateY(-2px); }
+        .btn-secondary { background-color: #1f2937; border: 1px solid #374151; box-shadow: none; }
+        .btn-secondary:hover { background-color: #374151; }
     </style>
 </head>
 <body>
 
-    <!-- Sol Üst Chill Müzik Butonu -->
-    <div id="music-control">
-        <span>🔊</span> Chill: <span id="music-status">Açık</span>
-    </div>
-
-    <!-- Görünmez Müzik Oynatıcı (Telifsiz Chill Lofi) -->
-    <iframe id="chill-audio" src="https://www.youtube.com/embed/5qap5aO4i9A?autoplay=1&loop=1&playlist=5qap5aO4i9A" allow="autoplay" style="display:none;"></iframe>
+    <div id="music-control" onclick="toggleMusic()">🔇</div>
+    <audio id="chill-audio" loop>
+        <source src="https://cdn.pixabay.com/download/audio/2022/05/27/audio_1808fbf756.mp3?filename=lofi-study-112191.mp3" type="audio/mpeg">
+    </audio>
 
     <button class="lang-switch" onclick="toggleLanguage()">EN / TR</button>
 
     <div class="container">
-        <div class="bot-avatar">
-            <img src="avatar.jpg" alt="Solly PFP">
-        </div>
-        
+        <div class="bot-avatar"><img src="avatar.jpg" alt="Solly PFP"></div>
         <h1 id="title">Solly <span>Bot</span></h1>
         <p id="desc">Discord sunucundaki kanalları çok daha hızlı ve pratik bir şekilde kurmanı sağlayan efsane bot!</p>
         
@@ -154,8 +52,23 @@
     </div>
 
     <script>
-        let currentLang = 'tr';
+        const audio = document.getElementById('chill-audio');
+        const controlBtn = document.getElementById('music-control');
+        let isPlaying = false;
 
+        function toggleMusic() {
+            if (isPlaying) {
+                audio.pause();
+                controlBtn.innerText = "🔇";
+                isPlaying = false;
+            } else {
+                audio.play();
+                controlBtn.innerText = "🔊";
+                isPlaying = true;
+            }
+        }
+
+        let currentLang = 'tr';
         function toggleLanguage() {
             const desc = document.getElementById('desc');
             const btnAdd = document.getElementById('btn-add');
@@ -176,27 +89,6 @@
                 btnSupport.innerText = 'Destek Sunucusu';
             }
         }
-
-        // Müzik Açma/Kapatma Mantığı
-        const musicControl = document.getElementById('music-control');
-        const musicStatus = document.getElementById('music-status');
-        const audioIframe = document.getElementById('chill-audio');
-        let isPlaying = true;
-
-        musicControl.addEventListener('click', () => {
-            if (isPlaying) {
-                audioIframe.src = "";
-                musicStatus.textContent = "Kapalı";
-                musicControl.style.background = "rgba(200, 0, 0, 0.6)";
-                isPlaying = false;
-            } else {
-                audioIframe.src = "https://www.youtube.com/embed/5qap5aO4i9A?autoplay=1&loop=1&playlist=5qap5aO4i9A";
-                musicStatus.textContent = "Açık";
-                musicControl.style.background = "rgba(0, 0, 0, 0.6)";
-                isPlaying = true;
-            }
-        });
     </script>
-
 </body>
 </html>
